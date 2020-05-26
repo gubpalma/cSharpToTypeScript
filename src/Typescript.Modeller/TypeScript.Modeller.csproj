@@ -1,8 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <PackageId>Gman.TypeScript.Converter</PackageId>
+    <Authors>G-MAN Solutions</Authors>
+    <Company>G-MAN Solutions</Company>
+    <PackageIconUrl>https://raw.githubusercontent.com/gubpalma/gman-content/master/owl_64.png</PackageIconUrl>
+    <Description>TypeScript Conversion Tool</Description>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
 </Project>

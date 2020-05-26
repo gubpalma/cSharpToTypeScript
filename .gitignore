@@ -3,6 +3,9 @@
 
 [Pp]ackage/
 
+# Sample results
+src/Typescript.Modeller.Sample/Results
+
 # User-specific files
 *.suo
 *.user
