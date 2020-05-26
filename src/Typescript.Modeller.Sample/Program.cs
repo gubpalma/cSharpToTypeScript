@@ -1,0 +1,27 @@
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
+using Sample.Assembly.One;
+using Sample.Assembly.Two;
+
+namespace Typescript.Modeller.Sample
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+
+            var projectDirectory = $"{Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.FullName}\\Results";
+
+            var assemblyFilePath = Assembly.GetAssembly(typeof(CarViewModel)).Location;
+
+            // var outputFolder = $"{Directory.GetCurrentDirectory()}\\Output";
+
+            var builder = new TypeScriptBuilder();
+
+            await builder.ConvertAsync(assemblyFilePath, projectDirectory);
+        }
+    }
+}

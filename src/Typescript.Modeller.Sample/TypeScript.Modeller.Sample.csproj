@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Sample.Assembly.One\Sample.Assembly.One.csproj" />
+    <ProjectReference Include="..\Sample.Assembly.Two\Sample.Assembly.Two.csproj" />
+    <ProjectReference Include="..\Typescript.Modeller\TypeScript.Modeller.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Results\" />
+  </ItemGroup>
+
+</Project>
