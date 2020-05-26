@@ -7,7 +7,7 @@
     <PackageId>Gman.TypeScript.Converter</PackageId>
     <Authors>G-MAN Solutions</Authors>
     <Company>G-MAN Solutions</Company>
-    <PackageIconUrl>https://raw.githubusercontent.com/gubpalma/gman-content/master/owl_64.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/gubpalma/gman-content/master/g-man-solutions-logo.png</PackageIconUrl>
     <Description>TypeScript Conversion Tool</Description>
     <OutputType>Exe</OutputType>
   </PropertyGroup>

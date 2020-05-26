@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -49,9 +50,19 @@ namespace Typescript.Modeller
                     Task.WhenAll(
                         results
                             .Select(o =>
-                                File.WriteAllTextAsync(
-                                    $"{outputFolder}\\{o.FileName}",
-                                    o.FileData.ToString())));
+                            {
+                                var filePath = $"{outputFolder}\\{o.FileName}";
+
+                                if (File.Exists(filePath))
+                                    Console.WriteLine($"File [{filePath}] exists, skipping");
+                                else
+                                {
+                                    Console.WriteLine($"Writing file [{filePath}]");
+                                    File.WriteAllTextAsync(filePath, o.FileData.ToString());
+                                }
+
+                                return Task.CompletedTask;
+                            }));
             }
 
             return results;
