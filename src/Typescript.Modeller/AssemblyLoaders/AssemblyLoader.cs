@@ -32,15 +32,8 @@ namespace TypeScript.Modeller.AssemblyLoaders
             currentAssemblies = new List<Type>();
             referenceAssemblies = new List<Type>();
 
-            Console.WriteLine('7');
-
             currentAssemblies.AddRange(LoadFromAssembly(assembly));
-
-            Console.WriteLine('8');
-
             referenceAssemblies.AddRange(LoadFromAssembly(assembly));
-
-            Console.WriteLine('9');
 
             var references = assembly.GetReferencedAssemblies();
 
