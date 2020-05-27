@@ -24,7 +24,10 @@ namespace Typescript.Modeller
             }
             catch (Exception e)
             {
+                Console.WriteLine("--------- ERROR ---------");
+                Console.WriteLine($"Could not complete TypeScript conversion for arguments - {string.Join(',', args)}");
                 Console.WriteLine(e.Message);
+                Console.WriteLine("-------------------------");
 
                 Environment.Exit(1);
             }

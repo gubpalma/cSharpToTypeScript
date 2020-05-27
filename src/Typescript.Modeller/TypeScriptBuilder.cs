@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using TypeScript.Modeller;
 using TypeScript.Modeller.Builder;
@@ -12,8 +11,6 @@ namespace Typescript.Modeller
 {
     public class TypeScriptBuilder
     {
-        
-
         public async Task<IEnumerable<ConversionResult>> ConvertAsync(string dllFileName, string outputFolder = null)
         {
             AssemblyLoader

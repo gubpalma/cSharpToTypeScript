@@ -18,7 +18,9 @@ namespace TypeScript.Modeller
             out List<Type> currentAssemblies,
             out List<Type> referenceAssemblies)
         {
-            var assembly = Assembly.LoadFrom(dllFileName);
+            var assembly = 
+                ContextAssemblyLoader
+                    .LoadFromAssemblyPath(dllFileName);
 
             currentAssemblies = new List<Type>();
             referenceAssemblies = new List<Type>();
@@ -26,10 +28,22 @@ namespace TypeScript.Modeller
             currentAssemblies.AddRange(LoadFromAssembly(assembly));
             referenceAssemblies.AddRange(LoadFromAssembly(assembly));
 
-            foreach (var referencedAssembly in assembly.GetReferencedAssemblies())
+            var references = assembly.GetReferencedAssemblies();
+
+            foreach (var referencedAssembly in references)
             {
-                referenceAssemblies
-                    .AddRange(Assembly.Load(referencedAssembly).GetTypes());
+                try
+                {
+                    referenceAssemblies
+                        .AddRange(Assembly.Load(referencedAssembly).GetTypes());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("--------- WARNING ---------");
+                    Console.WriteLine($"Could not load reference assembly {referencedAssembly.FullName}");
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine("-------------------------");
+                }
             }
         }
     }
