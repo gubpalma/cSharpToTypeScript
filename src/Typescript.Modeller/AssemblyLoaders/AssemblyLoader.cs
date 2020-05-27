@@ -2,16 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Typescript.Modeller;
 
-namespace TypeScript.Modeller
+namespace TypeScript.Modeller.AssemblyLoaders
 {
     public class AssemblyLoader
     {
-        private static IEnumerable<Type> LoadFromAssembly(Assembly assembly) =>
-            assembly
+        private static IEnumerable<Type> LoadFromAssembly(Assembly assembly)
+        {
+            var reg = assembly
                 .GetTypes()
                 .Where(t => t.GetCustomAttribute<TypeScriptViewModelAttribute>() != null);
+
+            Console.WriteLine(string.Join(", ", reg.Select(o => o.AssemblyQualifiedName)));
+
+            return assembly
+                .GetTypes()
+                .Where(t => t.GetCustomAttribute<TypeScriptViewModelAttribute>() != null);
+        }
 
         public static void LoadAllAssemblies(
             string dllFileName,
@@ -25,8 +32,15 @@ namespace TypeScript.Modeller
             currentAssemblies = new List<Type>();
             referenceAssemblies = new List<Type>();
 
+            Console.WriteLine('7');
+
             currentAssemblies.AddRange(LoadFromAssembly(assembly));
+
+            Console.WriteLine('8');
+
             referenceAssemblies.AddRange(LoadFromAssembly(assembly));
+
+            Console.WriteLine('9');
 
             var references = assembly.GetReferencedAssemblies();
 

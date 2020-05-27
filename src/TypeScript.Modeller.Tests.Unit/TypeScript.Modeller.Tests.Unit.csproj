@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Typescript.Modeller\TypeScript.Modeller.csproj" />
+    <ProjectReference Include="..\TypeScript.Modeller\TypeScript.Modeller.csproj" />
   </ItemGroup>
 
 </Project>

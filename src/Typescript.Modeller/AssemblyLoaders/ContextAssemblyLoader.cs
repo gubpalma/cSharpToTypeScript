@@ -5,29 +5,41 @@ using System.Reflection;
 using System.Runtime.Loader;
 using Microsoft.Extensions.DependencyModel;
 
-namespace TypeScript.Modeller
+namespace TypeScript.Modeller.AssemblyLoaders
 {
     public static class ContextAssemblyLoader
     {
         public static Assembly LoadFromAssemblyPath(string assemblyFullPath)
         {
+            Console.WriteLine('1');
+
             var fileNameWithOutExtension = Path.GetFileNameWithoutExtension(assemblyFullPath);
             var fileName = Path.GetFileName(assemblyFullPath);
             var directory = Path.GetDirectoryName(assemblyFullPath);
+
+            Console.WriteLine('2');
 
             var inCompileLibraries = DependencyContext.Default.CompileLibraries.Any(l =>
                 l.Name.Equals(fileNameWithOutExtension, StringComparison.OrdinalIgnoreCase));
             var inRuntimeLibraries = DependencyContext.Default.RuntimeLibraries.Any(l =>
                 l.Name.Equals(fileNameWithOutExtension, StringComparison.OrdinalIgnoreCase));
 
+            Console.WriteLine('3');
+
             var assembly = (inCompileLibraries || inRuntimeLibraries)
                 ? Assembly.Load(new AssemblyName(fileNameWithOutExtension))
                 : AssemblyLoadContext.Default.LoadFromAssemblyPath(assemblyFullPath);
 
+            Console.WriteLine('4');
+
             if (assembly != null)
                 LoadReferencedAssemblies(assembly, fileName, directory);
 
+            Console.WriteLine('5');
+
             LoadReferencedAssemblies(assembly, "Infrastructure.Host.WebApp", directory);
+
+            Console.WriteLine('6');
 
             return assembly;
         }

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Typescript.Modeller.Definition;
 using TypeScript.Modeller.Definition;
-using Typescript.Modeller.Extensions;
+using TypeScript.Modeller.Extensions;
 
-namespace Typescript.Modeller
+namespace TypeScript.Modeller
 {
     public static class TypeScriptConverter
     {

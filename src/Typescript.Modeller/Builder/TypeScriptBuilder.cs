@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using TypeScript.Modeller;
-using TypeScript.Modeller.Builder;
+using TypeScript.Modeller.AssemblyLoaders;
 using TypeScript.Modeller.Definition;
 
-namespace Typescript.Modeller
+namespace TypeScript.Modeller.Builder
 {
     public class TypeScriptBuilder
     {

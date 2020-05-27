@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Typescript.Modeller;
 using TypeScript.Modeller.Definition;
 
 namespace TypeScript.Modeller.Mapping

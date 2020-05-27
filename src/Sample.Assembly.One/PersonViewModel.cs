@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Typescript.Modeller;
+using TypeScript.Modeller;
 
 namespace Sample.Assembly.One
 {

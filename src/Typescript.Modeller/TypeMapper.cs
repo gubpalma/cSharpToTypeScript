@@ -4,7 +4,7 @@ using System.Linq;
 using TypeScript.Modeller.Definition;
 using TypeScript.Modeller.Mapping;
 
-namespace Typescript.Modeller
+namespace TypeScript.Modeller
 {
     public static class TypeMapper
     {

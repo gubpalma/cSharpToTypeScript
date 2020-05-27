@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Typescript.Modeller.Definition
+namespace TypeScript.Modeller.Definition
 {
     public class MappedTypeScriptMember
     {

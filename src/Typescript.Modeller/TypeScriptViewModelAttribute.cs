@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Typescript.Modeller
+namespace TypeScript.Modeller
 {
     public class TypeScriptViewModelAttribute : Attribute
     {

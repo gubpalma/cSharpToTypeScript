@@ -1,6 +1,7 @@
 ﻿using System;
+using TypeScript.Modeller.Builder;
 
-namespace Typescript.Modeller
+namespace TypeScript.Modeller
 {
     class Program
     {
@@ -27,6 +28,7 @@ namespace Typescript.Modeller
                 Console.WriteLine("--------- ERROR ---------");
                 Console.WriteLine($"Could not complete TypeScript conversion for arguments - {string.Join(',', args)}");
                 Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
                 Console.WriteLine("-------------------------");
 
                 Environment.Exit(1);

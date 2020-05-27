@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Sample.Assembly.One;
-using Typescript.Modeller;
+using TypeScript.Modeller;
 
 namespace Sample.Assembly.Two
 {

@@ -1,4 +1,4 @@
-﻿namespace Typescript.Modeller.Extensions
+﻿namespace TypeScript.Modeller.Extensions
 {
     public static class StringEx
     {

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Text;
-using Typescript.Modeller.Definition;
+using TypeScript.Modeller.Definition;
 
 namespace TypeScript.Modeller.Builder
 {

@@ -1,5 +1,5 @@
 ﻿using System;
-using Typescript.Modeller;
+using TypeScript.Modeller;
 
 namespace Sample.Assembly.Two
 {

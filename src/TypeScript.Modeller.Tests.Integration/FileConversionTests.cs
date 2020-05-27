@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Typescript.Modeller;
+using TypeScript.Modeller.Builder;
 using TypeScript.Modeller.Definition;
 using Xunit;
 
