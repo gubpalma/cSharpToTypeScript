@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using TypeScript.Modeller;
 using TypeScript.Modeller.Builder;
 using TypeScript.Modeller.Definition;
 
@@ -11,26 +12,15 @@ namespace Typescript.Modeller
 {
     public class TypeScriptBuilder
     {
-        private static IEnumerable<Type> LoadFromAssembly(Assembly assembly) =>
-            assembly
-                .GetTypes()
-                .Where(t => t.GetCustomAttribute<TypeScriptViewModelAttribute>() != null);
+        
 
         public async Task<IEnumerable<ConversionResult>> ConvertAsync(string dllFileName, string outputFolder = null)
         {
-            var assembly = Assembly.LoadFrom(dllFileName);
-
-            var tsCurrentAssemblyClasses = new List<Type>();
-            var tsReferencedAssemblyClasses = new List<Type>();
-
-            tsCurrentAssemblyClasses.AddRange(LoadFromAssembly(assembly));
-            tsReferencedAssemblyClasses.AddRange(LoadFromAssembly(assembly));
-
-            foreach (var referencedAssembly in assembly.GetReferencedAssemblies())
-            {
-                tsReferencedAssemblyClasses
-                    .AddRange(Assembly.Load(referencedAssembly).GetTypes());
-            }
+            AssemblyLoader
+                .LoadAllAssemblies(
+                    dllFileName, 
+                    out var tsCurrentAssemblyClasses, 
+                    out var tsReferencedAssemblyClasses);
 
             if (!string.IsNullOrEmpty(outputFolder))
             {
