@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sample.Assembly.One;
 using Typescript.Modeller;
 
 namespace Sample.Assembly.Two
@@ -24,6 +25,10 @@ namespace Sample.Assembly.Two
         public string MobileNumber { get; set; }
 
         public virtual int ApplicantStatus { get; set; }
+
+        public virtual CarViewModel Car { get; set; }
+
+        public virtual UnmarkedViewModel Unmarked { get; set; }
 
         public virtual ICollection<AddressViewModel> Addresses { get; set; }
     }

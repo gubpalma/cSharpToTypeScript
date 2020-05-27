@@ -15,13 +15,13 @@ namespace Typescript.Modeller.Sample
 
             var projectDirectory = $"{Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.FullName}\\Results";
 
-            var assemblyFilePath = Assembly.GetAssembly(typeof(CarViewModel)).Location;
-
-            // var outputFolder = $"{Directory.GetCurrentDirectory()}\\Output";
+            var assemblyFilePath = Assembly.GetAssembly(typeof(ProfileViewModel)).Location;
 
             var builder = new TypeScriptBuilder();
 
             await builder.ConvertAsync(assemblyFilePath, projectDirectory);
+
+            Console.ReadKey();
         }
     }
 }
