@@ -10,7 +10,11 @@ namespace Typescript.Modeller
 {
     public static class TypeScriptConverter
     {
-        public static MappedTypeScriptClass Convert(Type type, ICollection<Type> allTypes)
+        public static MappedTypeScriptClass Convert(
+            Type type, 
+            ICollection<Type> currentTypes, 
+            ICollection<Type> referencedTypes,
+            ICollection<Type> unMappedDependencies)
         {
             var output = new MappedTypeScriptClass();
 
@@ -25,7 +29,7 @@ namespace Typescript.Modeller
 
             output.Members =
                 properties
-                    .Select(o => Convert(o, allTypes));
+                    .Select(o => Convert(o, currentTypes, referencedTypes, unMappedDependencies));
 
             var imports = new List<MappedImport>();
             foreach(var imported in output.Members.Where(o => o.IsImport))
@@ -36,11 +40,21 @@ namespace Typescript.Modeller
             return output;
         }
 
-        public static MappedTypeScriptMember Convert(PropertyInfo property, ICollection<Type> allTypes)
+        public static MappedTypeScriptMember Convert(
+            PropertyInfo property, 
+            ICollection<Type> currentTypes, 
+            ICollection<Type> referencedTypes,
+            ICollection<Type> unMappedDependencies)
         {
             var output = new MappedTypeScriptMember();
 
-            var mappedType = TypeMapper.Map(property.PropertyType, allTypes);
+            var mappedType = 
+                TypeMapper
+                    .Map(
+                        property.PropertyType, 
+                        currentTypes, 
+                        referencedTypes,
+                        unMappedDependencies);
 
             output.Name = property.Name.ToCamelCase();
 

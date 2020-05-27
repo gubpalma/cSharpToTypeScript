@@ -28,12 +28,19 @@ namespace TypeScript.Modeller.Mapping
             {"System.DateTime", new TypeScriptDeclaration("Date", "null")},
         };
 
-        public bool AppliesTo(Type type, ICollection<Type> allTypes)
+        public bool AppliesTo(
+            Type type, 
+            ICollection<Type> currentTypes, 
+            ICollection<Type> referencedTypes)
         {
             return DefinedTypesDictionary
                 .ContainsKey(type?.FullName ?? string.Empty);
         }
 
-        public TypeScriptDeclaration Map(Type type, ICollection<Type> allTypes) => DefinedTypesDictionary[type?.FullName];
+        public TypeScriptDeclaration Map(
+            Type type, 
+            ICollection<Type> currentTypes, 
+            ICollection<Type> referencedTypes,
+            ICollection<Type> unMappedDependencies) => DefinedTypesDictionary[type?.FullName];
     }
 }

@@ -6,8 +6,15 @@ namespace TypeScript.Modeller.Mapping
 {
     public interface IMapper
     {
-        bool AppliesTo(Type type, ICollection<Type> allTypes);
+        bool AppliesTo(
+            Type type, 
+            ICollection<Type> currentTypes, 
+            ICollection<Type> referencedTypes);
 
-        TypeScriptDeclaration Map(Type type, ICollection<Type> allTypes);
+        TypeScriptDeclaration Map(
+            Type type,
+            ICollection<Type> currentTypes,
+            ICollection<Type> referencedTypes,
+            ICollection<Type> unMappedDependencies);
     }
 }

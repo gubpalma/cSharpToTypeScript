@@ -48,20 +48,24 @@ namespace TypeScript.Modeller.Mapping
             },
         };
 
-        public bool AppliesTo(Type type, ICollection<Type> allTypes)
+        public bool AppliesTo(Type type, ICollection<Type> currentTypes, ICollection<Type> referencedTypes)
         {
             return GenericTypesDictionary
                 .ContainsKey(type?.Name ?? string.Empty);
         }
 
-        public TypeScriptDeclaration Map(Type type, ICollection<Type> allTypes)
+        public TypeScriptDeclaration Map(
+            Type type, 
+            ICollection<Type> currentTypes, 
+            ICollection<Type> referencedTypes,
+            ICollection<Type> unMappedDependencies)
         {
             var genericType = GenericTypesDictionary[type.Name];
 
             if (type.GenericTypeArguments.Length == 1)
             {
                 var nulledType = type.GenericTypeArguments[0];
-                var mapped = TypeMapper.Map(nulledType, allTypes);
+                var mapped = TypeMapper.Map(nulledType, currentTypes, referencedTypes, unMappedDependencies);
 
                 var result = genericType(mapped);
                 return result;

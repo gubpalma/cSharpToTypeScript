@@ -15,7 +15,7 @@ namespace Typescript.Modeller.Sample
 
             var projectDirectory = $"{Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.FullName}\\Results";
 
-            var assemblyFilePath = Assembly.GetAssembly(typeof(ProfileViewModel)).Location;
+            var assemblyFilePath = Assembly.GetAssembly(typeof(CarViewModel)).Location;
 
             var builder = new TypeScriptBuilder();
 

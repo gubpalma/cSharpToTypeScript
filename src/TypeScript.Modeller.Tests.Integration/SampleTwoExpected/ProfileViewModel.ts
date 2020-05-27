@@ -1,3 +1,5 @@
+import { CarViewModel } from './CarViewModel';
+import { UnmarkedViewModel } from './UnmarkedViewModel';
 import { AddressViewModel } from './AddressViewModel';
 
 export class ProfileViewModel {
@@ -10,5 +12,7 @@ export class ProfileViewModel {
 	public email: string = '';
 	public mobileNumber: string = '';
 	public applicantStatus: number = 0;
+	public car: CarViewModel | undefined = undefined;
+	public unmarked: UnmarkedViewModel | undefined = undefined;
 	public addresses: AddressViewModel[] = [];
 }

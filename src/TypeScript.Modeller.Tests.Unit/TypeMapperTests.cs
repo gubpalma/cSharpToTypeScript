@@ -53,7 +53,7 @@ namespace TypeScript.Modeller.Tests.Unit
 
             public void ActMapType()
             {
-                _result = TypeMapper.Map(_type, new List<Type>());
+                _result = TypeMapper.Map(_type, new List<Type>(), new List<Type>(), new List<Type>());
             }
 
             public void AssertMappedType(string expected)

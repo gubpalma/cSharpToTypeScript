@@ -5,11 +5,18 @@ using TypeScript.Modeller.Definition;
 
 namespace TypeScript.Modeller.Mapping
 {
-    public class ReferenceTypeMapper : IMapper
+    public class InternalReferenceTypeMapper : IMapper
     {
-        public bool AppliesTo(Type type, ICollection<Type> allTypes) => allTypes.Any(o => o.FullName == type.FullName);
+        public bool AppliesTo(
+            Type type, 
+            ICollection<Type> currentTypes, 
+            ICollection<Type> referencedTypes) => currentTypes.Any(o => o.FullName == type.FullName);
 
-        public TypeScriptDeclaration Map(Type type, ICollection<Type> allTypes)
+        public TypeScriptDeclaration Map(
+            Type type, 
+            ICollection<Type> allTypes, 
+            ICollection<Type> referencedTypes,
+            ICollection<Type> unMappedDependencies)
         {
             var name = allTypes.First(o => o.FullName == type?.FullName).Name;
 

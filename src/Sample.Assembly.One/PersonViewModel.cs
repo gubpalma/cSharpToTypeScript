@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Typescript.Modeller;
 
 namespace Sample.Assembly.One
@@ -13,5 +14,7 @@ namespace Sample.Assembly.One
         public string StringField { get; set; }
 
         public DateTime? NullableDate { get; set; }
+
+        public IEnumerable<CarViewModel> Cars { get; set; }
     }
 }

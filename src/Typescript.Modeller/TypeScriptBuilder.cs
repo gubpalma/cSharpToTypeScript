@@ -29,7 +29,7 @@ namespace Typescript.Modeller
             foreach (var referencedAssembly in assembly.GetReferencedAssemblies())
             {
                 tsReferencedAssemblyClasses
-                    .AddRange(LoadFromAssembly(Assembly.Load(referencedAssembly)));
+                    .AddRange(Assembly.Load(referencedAssembly).GetTypes());
             }
 
             if (!string.IsNullOrEmpty(outputFolder))
@@ -40,35 +40,63 @@ namespace Typescript.Modeller
 
             var results = new List<ConversionResult>();
 
-            await
-                Task.WhenAll(
-                    tsCurrentAssemblyClasses.Select(o =>
-                    {
-                        try
+            var unMappedDependencies = new List<Type>();
+
+            do
+            {
+                unMappedDependencies.Clear();
+
+                await
+                    Task.WhenAll(
+                        tsCurrentAssemblyClasses.Select(o =>
                         {
-                            var mappedTypeScriptClass =
-                                TypeScriptConverter
-                                    .Convert(o, tsReferencedAssemblyClasses);
+                            try
+                            {
+                                var mappedTypeScriptClass =
+                                    TypeScriptConverter
+                                        .Convert(o, tsCurrentAssemblyClasses, tsReferencedAssemblyClasses, unMappedDependencies);
 
-                            var output =
-                                FileBuilder
-                                    .BuildTypeScriptClass(mappedTypeScriptClass);
+                                var output =
+                                    FileBuilder
+                                        .BuildTypeScriptClass(mappedTypeScriptClass);
 
-                            var fileName = $"{o.Name}.ts";
+                                var fileName = $"{o.Name}.ts";
 
-                            results.Add(new ConversionResult {FileName = fileName, FileData = output.ToString()});
+                                results.Add(
+                                    new ConversionResult
+                                    {
+                                        FileName = fileName, 
+                                        FileData = output.ToString(),
+                                        Hash = o.GUID
+                                    });
 
-                            return Task.CompletedTask;
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("--------- ERROR ---------");
-                            Console.WriteLine($"Could not convert class {o.FullName}");
-                            Console.WriteLine(e.Message);
-                            Console.WriteLine("-------------------------");
-                            return Task.FromException(e);
-                        }
-                    }));
+                                return Task.CompletedTask;
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine("--------- ERROR ---------");
+                                Console.WriteLine($"Could not convert class {o.FullName}");
+                                Console.WriteLine(e.Message);
+                                Console.WriteLine("-------------------------");
+                                return Task.FromException(e);
+                            }
+                        }));
+
+                // Remove duplicates
+                unMappedDependencies = 
+                    unMappedDependencies
+                        .Distinct()
+                        .ToList();
+
+                // Remove existing (prevent circular references)
+                unMappedDependencies =
+                    unMappedDependencies
+                        .Where(o => !results.Select(r => r.Hash).Contains(o.GUID))
+                        .ToList();
+
+                tsCurrentAssemblyClasses = new List<Type>(unMappedDependencies);
+
+            } while (unMappedDependencies.Any());
 
             if (!string.IsNullOrEmpty(outputFolder))
             {
