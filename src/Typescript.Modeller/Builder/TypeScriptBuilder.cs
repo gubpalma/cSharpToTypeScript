@@ -21,7 +21,12 @@ namespace TypeScript.Modeller.Builder
             if (!string.IsNullOrEmpty(outputFolder))
             {
                 if (!Directory.Exists(outputFolder))
+                {
+                    Console.WriteLine($"Creating directory {outputFolder}");
                     Directory.CreateDirectory(outputFolder);
+                    if (!Directory.Exists(outputFolder))
+                        throw new Exception($"Could not create folder {outputFolder}");
+                }
             }
 
             var results = new List<ConversionResult>();
@@ -91,7 +96,7 @@ namespace TypeScript.Modeller.Builder
                         results
                             .Select(o =>
                             {
-                                var filePath = $"{outputFolder}\\{o.FileName}";
+                                var filePath = $"{outputFolder}{(outputFolder.EndsWith("\\") ? null : "\\")}{o.FileName}";
                                 try
                                 {
                                     if (File.Exists(filePath))

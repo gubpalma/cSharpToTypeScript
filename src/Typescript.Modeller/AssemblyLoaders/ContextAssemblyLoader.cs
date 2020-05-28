@@ -43,6 +43,7 @@ namespace TypeScript.Modeller.AssemblyLoaders
                     {
                         var loadFileName = reference.Name + ".dll";
                         var path = Path.Combine(directory, loadFileName);
+                        Console.WriteLine($"Attempting to load assembly [{reference.Name}] from {path}");
                         var loadedAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(path);
                         if (loadedAssembly != null)
                             LoadReferencedAssemblies(loadedAssembly, loadFileName, directory);

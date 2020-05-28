@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -9,15 +10,10 @@ namespace TypeScript.Modeller.AssemblyLoaders
     {
         private static IEnumerable<Type> LoadFromAssembly(Assembly assembly)
         {
-            var reg = assembly
-                .GetTypes()
-                .Where(t => t.GetCustomAttribute<TypeScriptViewModelAttribute>() != null);
-
-            Console.WriteLine(string.Join(", ", reg.Select(o => o.AssemblyQualifiedName)));
-
             return assembly
                 .GetTypes()
-                .Where(t => t.GetCustomAttribute<TypeScriptViewModelAttribute>() != null);
+                .Where(t => t.GetCustomAttribute<TypeScriptViewModelAttribute>() != null)
+                .ToList();
         }
 
         public static void LoadAllAssemblies(
@@ -41,8 +37,25 @@ namespace TypeScript.Modeller.AssemblyLoaders
             {
                 try
                 {
+                    Console.WriteLine($"* Attempting to load reference assembly {referencedAssembly}");
                     referenceAssemblies
-                        .AddRange(Assembly.Load(referencedAssembly).GetTypes());
+                        .AddRange(Assembly.Load(referencedAssembly)
+                            .GetTypes()
+                            .ToList());
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine($"\t - Could not load {referencedAssembly}, trying base folder load");
+
+                    var folder = Path.GetDirectoryName(dllFileName);
+                    var path = $"{folder}\\{referencedAssembly.Name}.dll";
+
+                    Console.WriteLine($"* Attempting to load reference assembly {referencedAssembly} at {path}");
+
+                    referenceAssemblies
+                        .AddRange(ContextAssemblyLoader.LoadFromAssemblyPath(path)
+                            .GetTypes()
+                            .ToList());
                 }
                 catch (Exception e)
                 {
