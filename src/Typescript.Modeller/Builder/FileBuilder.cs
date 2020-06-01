@@ -6,6 +6,8 @@ namespace TypeScript.Modeller.Builder
 {
     internal static class FileBuilder
     {
+        private const string DefaultIndent = "    ";
+
         public static StringBuilder BuildTypeScriptClass(MappedTypeScriptClass source)
         {
             var output = new StringBuilder();
@@ -21,7 +23,7 @@ namespace TypeScript.Modeller.Builder
             {
                 var alternates = string.Join(" | ", property.AlternateTypes);
 
-                output.Append($"\t");
+                output.Append(DefaultIndent);
                 output.Append($"{property.Scope} ");
                 output.Append($"{property.Name}");
                 output.Append($"{(property.IsNullable ? "?" : "")}: ");

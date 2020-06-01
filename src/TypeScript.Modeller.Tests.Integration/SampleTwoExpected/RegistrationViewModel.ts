@@ -1,3 +1,3 @@
 export class RegistrationViewModel {
-	public digits: string[] = [];
+    public digits: string[] = [];
 }

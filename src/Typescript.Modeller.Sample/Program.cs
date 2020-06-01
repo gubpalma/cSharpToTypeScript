@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Sample.Assembly.One;
 using Sample.Assembly.Two;
 using TypeScript.Modeller.Builder;
 
@@ -15,7 +16,7 @@ namespace TypeScript.Modeller.Sample
 
             var projectDirectory = $"{Directory.GetParent(Environment.CurrentDirectory)?.Parent?.Parent?.FullName}\\Results";
 
-            var assemblyFilePath = Assembly.GetAssembly(typeof(AddressViewModel)).Location;
+            var assemblyFilePath = Assembly.GetAssembly(typeof(CarViewModel)).Location;
 
             var builder = new TypeScriptBuilder();
 

@@ -25,7 +25,7 @@ namespace TypeScript.Modeller.Mapping
             {"System.Int16", new TypeScriptDeclaration("number", "0")},
             {"System.UInt16", new TypeScriptDeclaration("number", "0")},
 
-            {"System.DateTime", new TypeScriptDeclaration("Date", "null")},
+            {"System.DateTime", new TypeScriptDeclaration("Date", "new Date(0)")},
         };
 
         public bool AppliesTo(

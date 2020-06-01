@@ -1,3 +1,3 @@
 export class UnmarkedViewModel {
-	public thisIsAGuid: string = '';
+    public thisIsAGuid: string = '';
 }
